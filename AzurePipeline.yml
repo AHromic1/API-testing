@@ -1,0 +1,18 @@
+trigger:
+- main  # Trigger the pipeline on changes to the main branch
+
+pool:
+  vmImage: 'windows-latest'  # Specify the agent pool and VM image
+
+jobs:
+- job: BuildAndTest
+  steps:
+  - script: echo 'Hello, World!'
+    displayName: 'Run a one-line script'  # Example script step
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+    displayName: 'Use .NET Core SDK'  # Example task to use .NET Core SDK
+
+# Add more jobs, steps, or tasks based on your project requirements
