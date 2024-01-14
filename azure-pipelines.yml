@@ -6,25 +6,31 @@ pipeline {
   }
 
   environment {
-    POSTMAN_API_KEY = 'PMAK-65a42789fda5f200383a4c5f-38d336c64ae8fe2393220a5f1f13e20002'
+    POSTMAN_API_KEY = credentials('PostmanApiKey')
   }
 
   stages {
     stage('Install Postman CLI') {
       steps {
-        sh 'curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh'
+        script {
+          sh 'curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh'
+        }
       }
     }
 
     stage('Postman CLI Login') {
       steps {
-        sh 'postman login --with-api-key $POSTMAN_API_KEY'
+        script {
+          sh "postman login --with-api-key $POSTMAN_API_KEY"
+        }
       }
     }
 
     stage('Running Collection') {
       steps {
-        sh 'postman collection run "27632808-0c2bfaab-4c2b-4d49-95ae-3d2f60a31e90"'
+        script {
+          sh 'postman collection run "27632808-0c2bfaab-4c2b-4d49-95ae-3d2f60a31e90"'
+        }
       }
     }
   }
