@@ -1,36 +1,24 @@
 pipeline {
   agent any
 
-  tools {
-    nodejs 'your_nodejs_configured_tool_name'
-  }
-
-  environment {
-    POSTMAN_API_KEY = credentials('PostmanApiKey')
-  }
+  tools {nodejs "{your_nodejs_configured_tool_name}"}
 
   stages {
     stage('Install Postman CLI') {
       steps {
-        script {
-          sh 'curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh'
-        }
+        sh 'curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh'
       }
     }
 
     stage('Postman CLI Login') {
       steps {
-        script {
-          sh "postman login --with-api-key $POSTMAN_API_KEY"
+        sh 'postman login --with-api-key $POSTMAN_API_KEY'
         }
-      }
     }
 
-    stage('Running Collection') {
+    stage('Running collection') {
       steps {
-        script {
-          sh 'postman collection run "27632808-0c2bfaab-4c2b-4d49-95ae-3d2f60a31e90"'
-        }
+        sh 'postman collection run "27632808-0c2bfaab-4c2b-4d49-95ae-3d2f60a31e90"'
       }
     }
   }
