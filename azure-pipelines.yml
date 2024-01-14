@@ -13,3 +13,4 @@ steps:
         postman login --with-api-key $(POSTMAN_API_KEY)
         # Run your collection using Postman CLI
         postman collection run "27632808-0c2bfaab-4c2b-4d49-95ae-3d2f60a31e90"
+  condition: ne(variables['system.debugContext'], null)
